@@ -1,11 +1,10 @@
 package com.humanup.adminmatrix.dao.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "role")
 public class Role {
 
     @Id
@@ -13,6 +12,10 @@ public class Role {
     private Long roleId;
     private String roleTitle;
     private String roleDescription;
+
+
+    @OneToMany(mappedBy="role",fetch=FetchType.LAZY)
+    private List<Account> accountList;
 
     protected Role() {}
 
@@ -37,6 +40,9 @@ public class Role {
     }
     public String getRoleDescription() {
         return this.roleDescription;
+    }
+    public List<Account> getAccountList() {
+        return accountList;
     }
 
 
