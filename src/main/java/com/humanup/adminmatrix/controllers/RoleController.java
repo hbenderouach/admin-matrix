@@ -2,6 +2,7 @@ package com.humanup.adminmatrix.controllers;
 
 import com.humanup.adminmatrix.bs.RoleBS;
 import com.humanup.adminmatrix.vo.RoleVO;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,22 +17,22 @@ public class RoleController {
     @Autowired
     private RoleBS roleBS;
 
-    @RequestMapping(value="/role", method= RequestMethod.POST)
+    @Operation(summary = "Create role", description = " Create new role by title, decsription ...", tags = { "role" })
+    @RequestMapping(value="/role", method= RequestMethod.POST,consumes={ "application/json"})
     @ResponseBody
-
     public ResponseEntity createRole(@RequestBody RoleVO role){
         Optional<Object> findRole = Optional.ofNullable(roleBS.findByRoleTitle(role.getRoleTitle()));
-
         if(findRole.isPresent()){
             return ResponseEntity.status(HttpStatus.FOUND).body("This Role is Founded");
         }
         roleBS.createRole(role);
-        return ResponseEntity.status(HttpStatus.OK).body(role);
+        return ResponseEntity.status(HttpStatus.CREATED).body(role);
     }
 
+    @Operation(summary = "Find role by title", description = "role search by %roleTitle% format", tags = { "role" })
     @RequestMapping(value="/role", method=RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity getRoleInfo(@RequestParam(value="title", defaultValue="Manager RH") String roleTitle){
+    public ResponseEntity getRoleInfo(@RequestParam(value="title", defaultValue="hr") String roleTitle){
         Optional<RoleVO> findRole = Optional.ofNullable(roleBS.findByRoleTitle(roleTitle));
         if(findRole.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -39,6 +40,7 @@ public class RoleController {
         return ResponseEntity.status(HttpStatus.OK).body(findRole.get());
     }
 
+    @Operation(summary = "Find all roles", description = "Find all roles", tags = { "role" })
     @RequestMapping(value="/role/all", method=RequestMethod.GET)
     @ResponseBody
     public ResponseEntity getAllRoleInfo(){

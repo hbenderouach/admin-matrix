@@ -8,8 +8,8 @@ import javax.persistence.*;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long accountId;
+    @Column(unique = true)
+    private String accountMailAdresse;
     private String accountFirstName;
     private String accountLastName;
 
@@ -19,7 +19,8 @@ public class Account {
 
     protected Account() {}
 
-    public Account(String accountFirstName, String accountLastName, Role role) {
+    public Account(String accountMailAdresse, String accountFirstName, String accountLastName, Role role) {
+        this.accountMailAdresse = accountMailAdresse;
         this.accountFirstName = accountFirstName;
         this.accountLastName = accountLastName;
         this.role = role;
@@ -28,12 +29,12 @@ public class Account {
     @Override
     public String toString() {
         return String.format(
-                "Account[id=%d, accountFirstName='%s', AccountLastName='%s']",
-                accountId, accountFirstName, accountLastName);
+                "Account[id=%s, accountFirstName='%s', AccountLastName='%s']",
+                accountMailAdresse, accountFirstName, accountLastName);
     }
 
-    public Long getAccountId() {
-        return this.accountId;
+    public String getAccountMailAdresse() {
+        return this.accountMailAdresse;
     }
     public String getAccountFirstName() {
         return this.accountFirstName;
@@ -48,11 +49,17 @@ public class Account {
 
     public static class Builder{
 
+        private String accountMailAdresse;
         private String accountFirstName;
         private String accountLastName;
         private Role role;
 
         public Builder() {
+        }
+
+        public Builder setAccountMailAdresse(String accountMailAdresse) {
+            this.accountMailAdresse = accountMailAdresse;
+            return this;
         }
 
         public Builder setAccountFirstName(String accountFirstName) {
@@ -71,7 +78,7 @@ public class Account {
         }
 
         public Account build(){
-            return new Account( accountFirstName,  accountLastName, role);
+            return new Account(accountMailAdresse, accountFirstName,  accountLastName, role);
         }
     }
 

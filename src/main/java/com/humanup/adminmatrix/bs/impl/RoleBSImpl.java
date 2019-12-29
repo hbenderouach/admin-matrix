@@ -50,4 +50,15 @@ public class RoleBSImpl implements RoleBS {
 
     }
 
+    @Override
+    public List<RoleVO> findListAuthorizationsByAuthorizationsTitle(String authorizationsTitle) {
+        return roleDAO.findListRolesByTitle(authorizationsTitle)
+                .stream()
+                .map(roleFinded -> new RoleVO.Builder()
+                        .setRoleTitle(roleFinded.getRoleTitle())
+                        .setRoleDescription(roleFinded.getRoleDescription())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
 }

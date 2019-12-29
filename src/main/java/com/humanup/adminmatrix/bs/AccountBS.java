@@ -8,9 +8,9 @@ import java.util.List;
 public interface AccountBS {
 
     boolean createAccount(AccountVO Account);
-    AccountVO findByAccountLastName(String accountLastName);
+    AccountVO findAccountByLastName(String accountLastName);
+    AccountVO findAccountByMailAdresse(String accountMailAdresse);
     List<AccountVO> findListAccount();
-    List<AccountVO> findListRolesByProfileTitle(String roleTitle);
-
+    List<AccountVO> findListRolesByRoleTitle(String roleTitle);
 
 }
