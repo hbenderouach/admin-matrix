@@ -3,13 +3,15 @@ package com.humanup.adminmatrix.vo;
 public class RoleVO {
     private String roleTitle;
     private String roleDescription;
+    private int countAccount;
 
     public RoleVO() {
     }
 
-    public RoleVO(String roleTitle, String roleDescription) {
+    public RoleVO(String roleTitle, String roleDescription, int countAccount) {
         this.roleTitle = roleTitle;
         this.roleDescription = roleDescription;
+        this.countAccount = countAccount;
     }
 
     public String getRoleTitle() {
@@ -18,10 +20,14 @@ public class RoleVO {
     public String getRoleDescription() {
         return this.roleDescription;
     }
+    public int getCountAccount() {
+        return countAccount;
+    }
 
     public static class Builder{
         private String roleTitle;
         private String roleDescription;
+        private int countAccount;
 
         public Builder() {
         }
@@ -35,8 +41,14 @@ public class RoleVO {
             return this;
         }
 
+        public Builder setCountAccount(int countAccount) {
+            this.countAccount = countAccount;
+            return this;
+        }
+
+
         public RoleVO build() {
-            return new RoleVO(roleTitle, roleDescription);
+            return new RoleVO(roleTitle, roleDescription, countAccount);
         }
     }
 
