@@ -9,8 +9,8 @@ import java.util.List;
 public interface AccountDAO extends CrudRepository<Account, Long> {
     Account findByAccountLastName(String accountLastName);
     List<Account> findAll();
-    Account findByAccountId(long accountId);
+    Account findByAccountMailAdresse(String accountMailAdresse);
     @Query("SELECT a FROM Account a WHERE lower(a.role.roleTitle) like %:roleTitle% ")
-    List<Account> findListRolesByProfileTitle(String roleTitle);
+    List<Account> findByListRolesRoleTitle(String roleTitle);
     
 }

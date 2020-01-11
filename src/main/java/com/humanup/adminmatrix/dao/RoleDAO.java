@@ -1,4 +1,5 @@
 package com.humanup.adminmatrix.dao;
+import com.humanup.adminmatrix.dao.entities.Account;
 import com.humanup.adminmatrix.dao.entities.Role;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

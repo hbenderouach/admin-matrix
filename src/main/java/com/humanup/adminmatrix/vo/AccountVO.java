@@ -1,6 +1,8 @@
 package com.humanup.adminmatrix.vo;
 
 public class AccountVO {
+
+    private String accountMailAdresse;
     private String accountFirstName;
     private String accountLastName;
     private String accountRole;
@@ -8,10 +10,15 @@ public class AccountVO {
     public AccountVO() {
     }
 
-    public AccountVO(String accountFirstName, String accountLastName, String accountRole) {
+    public AccountVO(String accountMailAdresse, String accountFirstName, String accountLastName, String accountRole) {
+        this.accountMailAdresse = accountMailAdresse;
         this.accountFirstName = accountFirstName;
         this.accountLastName = accountLastName;
         this.accountRole = accountRole;
+    }
+
+    public String getAccountMailAdresse() {
+        return accountMailAdresse;
     }
 
     public String getAccountFirstName() {
@@ -27,11 +34,17 @@ public class AccountVO {
     }
 
     public static class Builder {
+        private String accountMailAdresse;
         private String accountFirstName;
         private String accountLastName;
         private String accountRole;
 
         public Builder() {
+        }
+
+        public Builder setAccountMailAdresse(String accountMailAdresse) {
+            this.accountMailAdresse = accountMailAdresse;
+            return this;
         }
 
         public Builder setAccountFirstName(String accountFirstName) {
@@ -50,7 +63,7 @@ public class AccountVO {
         }
 
         public AccountVO build() {
-            return new AccountVO(accountFirstName, accountLastName, accountRole);
+            return new AccountVO(accountMailAdresse, accountFirstName, accountLastName, accountRole);
         }
     }
 

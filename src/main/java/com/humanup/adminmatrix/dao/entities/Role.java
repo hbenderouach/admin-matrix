@@ -8,14 +8,16 @@ import java.util.List;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long roleId;
     private String roleTitle;
     private String roleDescription;
 
-
     @OneToMany(mappedBy="role",fetch=FetchType.LAZY)
     private List<Account> accountList;
+
+    @OneToMany(mappedBy="role",fetch=FetchType.LAZY)
+    private List<Authorization> authorizationList;
 
     protected Role() {}
 
@@ -42,9 +44,11 @@ public class Role {
         return this.roleDescription;
     }
     public List<Account> getAccountList() {
-        return accountList;
+        return this.accountList;
     }
-
+    public List<Authorization> getAuthorization() {
+        return this.authorizationList;
+    }
 
     public static class Builder{
 
@@ -65,7 +69,7 @@ public class Role {
         }
 
         public Role build(){
-            return new Role( roleTitle,  roleDescription);
+            return new Role(roleTitle,  roleDescription);
         }
     }
 
