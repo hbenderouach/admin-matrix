@@ -19,9 +19,9 @@ public class RoleBSImpl implements RoleBS {
 
     @Override
     public boolean createRole(RoleVO roleVO) {
-        Role roleToSave =new Role.Builder()
-                .setRoleTitle(roleVO.getRoleTitle())
-                .setRoleDescription(roleVO.getRoleDescription())
+        Role roleToSave = Role.builder()
+                .roleTitle(roleVO.getRoleTitle())
+                .roleDescription(roleVO.getRoleDescription())
                 .build();
         return  roleDAO.save(roleToSave)!=null;
     }
@@ -30,9 +30,9 @@ public class RoleBSImpl implements RoleBS {
     public RoleVO findByRoleTitle(String roleTitle) {
         Optional<Role> roleFinded = Optional.ofNullable(roleDAO.findByRoleTitle(roleTitle));
         if(roleFinded.isPresent()) {
-            return new RoleVO.Builder()
-                    .setRoleTitle(roleFinded.get().getRoleTitle())
-                    .setRoleDescription(roleFinded.get().getRoleDescription())
+            return  RoleVO.builder()
+                    .roleTitle(roleFinded.get().getRoleTitle())
+                    .roleDescription(roleFinded.get().getRoleDescription())
                     .build();
         }
         return null;
@@ -42,9 +42,9 @@ public class RoleBSImpl implements RoleBS {
     public List<RoleVO> findListRole() {
         return roleDAO.findAll()
                 .stream()
-                .map(roleFinded -> new RoleVO.Builder()
-                        .setRoleTitle(roleFinded.getRoleTitle())
-                        .setRoleDescription(roleFinded.getRoleDescription())
+                .map(roleFinded ->  RoleVO.builder()
+                        .roleTitle(roleFinded.getRoleTitle())
+                        .roleDescription(roleFinded.getRoleDescription())
                         .build())
                 .collect(Collectors.toList());
 
@@ -54,9 +54,9 @@ public class RoleBSImpl implements RoleBS {
     public List<RoleVO> findListAuthorizationsByAuthorizationsTitle(String authorizationsTitle) {
         return roleDAO.findListRolesByTitle(authorizationsTitle)
                 .stream()
-                .map(roleFinded -> new RoleVO.Builder()
-                        .setRoleTitle(roleFinded.getRoleTitle())
-                        .setRoleDescription(roleFinded.getRoleDescription())
+                .map(roleFinded ->  RoleVO.builder()
+                        .roleTitle(roleFinded.getRoleTitle())
+                        .roleDescription(roleFinded.getRoleDescription())
                         .build())
                 .collect(Collectors.toList());
     }

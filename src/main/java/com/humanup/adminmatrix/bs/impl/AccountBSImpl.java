@@ -25,11 +25,11 @@ public class AccountBSImpl implements AccountBS {
     @Override
     public boolean createAccount(AccountVO accountVO) {
         Role role = roleDAO.findByRoleTitle(accountVO.getAccountRole());
-        Account accountToSave =new Account.Builder()
-                .setAccountMailAdresse(accountVO.getAccountMailAdresse())
-                .setAccountFirstName(accountVO.getAccountFirstName())
-                .setAccountLastName(accountVO.getAccountLastName())
-                .setRole(role)
+        Account accountToSave = Account.builder()
+                .accountMailAdresse(accountVO.getAccountMailAdresse())
+                .accountFirstName(accountVO.getAccountFirstName())
+                .accountLastName(accountVO.getAccountLastName())
+                .role(role)
                 .build();
         return  accountDAO.save(accountToSave)!=null;
     }
@@ -38,11 +38,11 @@ public class AccountBSImpl implements AccountBS {
     public AccountVO findAccountByLastName(String accountLastName) {
         Optional<Account> accountFinded = Optional.ofNullable(accountDAO.findByAccountLastName(accountLastName));
         if(accountFinded.isPresent()) {
-            return new AccountVO.Builder()
-                    .setAccountMailAdresse(accountFinded.get().getAccountMailAdresse())
-                    .setAccountFirstName(accountFinded.get().getAccountFirstName())
-                    .setAccountLastName(accountFinded.get().getAccountLastName())
-                    .setAccountRole(accountFinded.get().getRole().getRoleTitle())
+            return  AccountVO.builder()
+                    .accountMailAdresse(accountFinded.get().getAccountMailAdresse())
+                    .accountFirstName(accountFinded.get().getAccountFirstName())
+                    .accountLastName(accountFinded.get().getAccountLastName())
+                    .accountRole(accountFinded.get().getRole().getRoleTitle())
                     .build();
         }
         return null;
@@ -52,11 +52,11 @@ public class AccountBSImpl implements AccountBS {
     public AccountVO findAccountByMailAdresse(String accountMailAdresse) {
         Optional<Account> accountFinded = Optional.ofNullable(accountDAO.findByAccountMailAdresse(accountMailAdresse));
         if(accountFinded.isPresent()) {
-            return new AccountVO.Builder()
-                    .setAccountMailAdresse(accountFinded.get().getAccountMailAdresse())
-                    .setAccountFirstName(accountFinded.get().getAccountFirstName())
-                    .setAccountLastName(accountFinded.get().getAccountLastName())
-                    .setAccountRole(accountFinded.get().getRole().getRoleTitle())
+            return  AccountVO.builder()
+                    .accountMailAdresse(accountFinded.get().getAccountMailAdresse())
+                    .accountFirstName(accountFinded.get().getAccountFirstName())
+                    .accountLastName(accountFinded.get().getAccountLastName())
+                    .accountRole(accountFinded.get().getRole().getRoleTitle())
                     .build();
         }
         return null;
@@ -66,11 +66,11 @@ public class AccountBSImpl implements AccountBS {
     public List<AccountVO> findListAccount() {
         return accountDAO.findAll()
                 .stream()
-                .map(accountFinded -> new AccountVO.Builder()
-                        .setAccountMailAdresse(accountFinded.getAccountMailAdresse())
-                        .setAccountFirstName(accountFinded.getAccountFirstName())
-                        .setAccountLastName(accountFinded.getAccountLastName())
-                        .setAccountRole(accountFinded.getRole().getRoleTitle())
+                .map(accountFinded ->  AccountVO.builder()
+                        .accountMailAdresse(accountFinded.getAccountMailAdresse())
+                        .accountFirstName(accountFinded.getAccountFirstName())
+                        .accountLastName(accountFinded.getAccountLastName())
+                        .accountRole(accountFinded.getRole().getRoleTitle())
                         .build())
                 .collect(Collectors.toList());
 
@@ -80,11 +80,11 @@ public class AccountBSImpl implements AccountBS {
     public List<AccountVO> findListRolesByRoleTitle(String roleTitle) {
         return accountDAO.findByListRolesRoleTitle(roleTitle)
                 .stream()
-                .map(accountFinded -> new AccountVO.Builder()
-                        .setAccountMailAdresse(accountFinded.getAccountMailAdresse())
-                        .setAccountFirstName(accountFinded.getAccountFirstName())
-                        .setAccountLastName(accountFinded.getAccountLastName())
-                        .setAccountRole(accountFinded.getRole().getRoleTitle())
+                .map(accountFinded ->  AccountVO.builder()
+                        .accountMailAdresse(accountFinded.getAccountMailAdresse())
+                        .accountFirstName(accountFinded.getAccountFirstName())
+                        .accountLastName(accountFinded.getAccountLastName())
+                        .accountRole(accountFinded.getRole().getRoleTitle())
                         .build())
                 .collect(Collectors.toList());
     }
