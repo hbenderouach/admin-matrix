@@ -37,11 +37,11 @@ public class AuthorizationBSImpl implements AuthorizationBS {
     public boolean createAuthorization(AuthorizationVO authorization) {
         Role role = roleDAO.findByRoleTitle(authorization.getAuthorizationRole());
         if (null==role) return false;
-        Authorization authorizationToSave =new Authorization.Builder()
-                .setAuthorizationTitle(authorization.getAuthorizationTitle())
-                .setAuthorizationDescription(authorization.getAuthorizationDescription())
-                .setAuthorizationUrl(authorization.getAuthorizationUrl())
-                .setRole(role)
+        Authorization authorizationToSave = Authorization.builder()
+                .authorizationTitle(authorization.getAuthorizationTitle())
+                .authorizationDescription(authorization.getAuthorizationDescription())
+                .authorizationUrl(authorization.getAuthorizationUrl())
+                .role(role)
                 .build();
         return  authorizationDAO.save(authorizationToSave)!=null;
     }
@@ -50,11 +50,11 @@ public class AuthorizationBSImpl implements AuthorizationBS {
     public AuthorizationVO findAuthorizationByTitle(String authorizationTitle) {
         Optional<Authorization> authorizationFinded = Optional.ofNullable(authorizationDAO.findByAuthorizationTitle(authorizationTitle));
         if(authorizationFinded.isPresent()) {
-            return new AuthorizationVO.Builder()
-                    .setAuthorizationTitle(authorizationFinded.get().getAuthorizationTitle())
-                    .setAuthorizationDescription(authorizationFinded.get().getAuthorizationDescription())
-                    .setAuthorizationUrl(authorizationFinded.get().getAuthorizationUrl())
-                    .setAuthorizationRole(authorizationFinded.get().getRole().getRoleTitle())
+            return  AuthorizationVO.builder()
+                    .authorizationTitle(authorizationFinded.get().getAuthorizationTitle())
+                    .authorizationDescription(authorizationFinded.get().getAuthorizationDescription())
+                    .authorizationUrl(authorizationFinded.get().getAuthorizationUrl())
+                    .authorizationRole(authorizationFinded.get().getRole().getRoleTitle())
                     .build();
         }
         return null;
@@ -64,11 +64,11 @@ public class AuthorizationBSImpl implements AuthorizationBS {
     public List<AuthorizationVO> findListAuthorization() {
         return authorizationDAO.findAll()
                 .stream()
-                .map(authorizationFinded -> new AuthorizationVO.Builder()
-                        .setAuthorizationTitle(authorizationFinded.getAuthorizationTitle())
-                        .setAuthorizationDescription(authorizationFinded.getAuthorizationDescription())
-                        .setAuthorizationUrl(authorizationFinded.getAuthorizationUrl())
-                        .setAuthorizationRole(authorizationFinded.getRole().getRoleTitle())
+                .map(authorizationFinded ->  AuthorizationVO.builder()
+                        .authorizationTitle(authorizationFinded.getAuthorizationTitle())
+                        .authorizationDescription(authorizationFinded.getAuthorizationDescription())
+                        .authorizationUrl(authorizationFinded.getAuthorizationUrl())
+                        .authorizationRole(authorizationFinded.getRole().getRoleTitle())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -77,11 +77,11 @@ public class AuthorizationBSImpl implements AuthorizationBS {
     public List<AuthorizationVO> findListAuthorizationsByTitle(String authorizationTitle) {
         return authorizationDAO.findListAuthorizationsByTitle(authorizationTitle)
                 .stream()
-                .map(authorizationFinded -> new AuthorizationVO.Builder()
-                        .setAuthorizationTitle(authorizationFinded.getAuthorizationTitle())
-                        .setAuthorizationDescription(authorizationFinded.getAuthorizationDescription())
-                        .setAuthorizationUrl(authorizationFinded.getAuthorizationUrl())
-                        .setAuthorizationRole(authorizationFinded.getRole().getRoleTitle())
+                .map(authorizationFinded ->  AuthorizationVO.builder()
+                        .authorizationTitle(authorizationFinded.getAuthorizationTitle())
+                        .authorizationDescription(authorizationFinded.getAuthorizationDescription())
+                        .authorizationUrl(authorizationFinded.getAuthorizationUrl())
+                        .authorizationRole(authorizationFinded.getRole().getRoleTitle())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -92,13 +92,13 @@ public class AuthorizationBSImpl implements AuthorizationBS {
 
         Account account = accountDAO.findByAccountMailAdresse(accountMailAdresse);
         if(null==account) return null;
-        return authorizationDAO.findAuthorizationsByRoleId(account.getRole().getId())
+        return authorizationDAO.findAuthorizationsByRoleId(account.getRole().getRoleId())
                 .stream()
-                .map(authorizationFinded -> new AuthorizationVO.Builder()
-                        .setAuthorizationTitle(authorizationFinded.getAuthorizationTitle())
-                        .setAuthorizationDescription(authorizationFinded.getAuthorizationDescription())
-                        .setAuthorizationUrl(authorizationFinded.getAuthorizationUrl())
-                        .setAuthorizationRole(authorizationFinded.getRole().getRoleTitle())
+                .map(authorizationFinded ->  AuthorizationVO.builder()
+                        .authorizationTitle(authorizationFinded.getAuthorizationTitle())
+                        .authorizationDescription(authorizationFinded.getAuthorizationDescription())
+                        .authorizationUrl(authorizationFinded.getAuthorizationUrl())
+                        .authorizationRole(authorizationFinded.getRole().getRoleTitle())
                         .build())
                 .collect(Collectors.toList());
     }
